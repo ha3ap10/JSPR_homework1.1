@@ -26,9 +26,27 @@ public class ClientConnection implements Runnable {
             final var path = request.getPath();
 
             Handler handler = handlersMap.get(method).get(path);
+            if (handler == null) {
+               handler = notFoundHandler();
+            }
             handler.handle(request, out);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private Handler notFoundHandler() {
+        return new Handler() {
+            @Override
+            public void handle(Request request, BufferedOutputStream responseStream) throws IOException {
+                responseStream.write((
+                        "HTTP/1.1 404 Not Found\r\n" +
+                                "Content-Length: 0\r\n" +
+                                "Connection: close\r\n" +
+                                "\r\n"
+                ).getBytes());
+                responseStream.flush();
+            }
+        };
     }
 }
