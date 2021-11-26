@@ -7,12 +7,12 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Client implements Runnable {
+public class ClientConnection implements Runnable {
 
     final List<String> validPaths = List.of("/index.html", "/spring.svg", "/spring.png", "/resources.html", "/styles.css", "/app.js", "/links.html", "/forms.html", "/classic.html", "/events.html", "/events.js");
     private final Socket socket;
 
-    public Client(Socket socket) {
+    public ClientConnection(Socket socket) {
         this.socket = socket;
     }
 

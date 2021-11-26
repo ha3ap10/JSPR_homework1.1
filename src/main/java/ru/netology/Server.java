@@ -27,7 +27,7 @@ public class Server {
                 try {
                     Socket clientSocket = serverSocket.accept();
                     System.out.println("New connection: " + clientSocket.getInetAddress());
-                    executorService.execute(new Client(clientSocket));
+                    executorService.execute(new ClientConnection(clientSocket));
                 } catch (IOException e) {
                     if (!e.getMessage().equals(TIME_OUT)) {
                         e.printStackTrace();
